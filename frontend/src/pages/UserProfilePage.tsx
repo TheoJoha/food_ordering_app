@@ -1,8 +1,8 @@
-import UserProfielForm from "@/forms/user-profile-form/UserProfielForm"
+import UserProfileForm from "@/forms/user-profile-form/UserProfileForm"
 
 const UserProfilePage = () => {
   return (
-    <UserProfielForm />
+    <UserProfileForm />
   )
 }
 
