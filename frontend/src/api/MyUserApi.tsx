@@ -9,7 +9,7 @@ type CreateUserRequest = {
 }
 
 export const useCreateMyUser = () => {
-    const {getAccessTokenSilently} = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
 
     const createMyUserRequest = async (user: CreateUserRequest) => {
         const accessToken = await getAccessTokenSilently()
@@ -25,9 +25,11 @@ export const useCreateMyUser = () => {
         if (!response) {
             throw new Error("Failed to create user")
         }
+
+        return response.json()
     }
 
-    const {mutateAsync: createUser, isLoading, isError, isSuccess} = useMutation(createMyUserRequest)
+    const { mutateAsync: createUser, isLoading, isError, isSuccess } = useMutation(createMyUserRequest)
 
     return {
         createUser,
@@ -36,3 +38,39 @@ export const useCreateMyUser = () => {
         isSuccess,
     }
 }
+
+type updateMyUserRequest = {
+    name: string,
+    addressLine1: string,
+    city: string,
+    country: string,
+};
+
+export const useUpdateMyUser = () => {
+    const { getAccessTokenSilently } = userAuth0();
+
+    const updateMyUserRequest = async (formData: updateMyUserRequest) => {
+
+        const accessToken = await getAccessTokenSilently();
+        const response = await fetch(`${API_BASE_URL}/api/my/yser`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+
+        if (!response.ok) {
+            throw new Error("Failed to update user")
+        }
+
+        return response.json()
+    }
+
+    const { mutateAsync: updateUser, isLoading, isSuccess, isError, error, reset } = useMutation(updateMyUserRequest)
+
+    return {updateUser, isLoading}
+}
+
+
