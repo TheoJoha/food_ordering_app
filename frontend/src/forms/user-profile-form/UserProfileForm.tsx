@@ -17,11 +17,11 @@ const formSchema = z.object({
 type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
-    onSave: (userProfileData: UserFormData) => void
+    onSave: (userProfileData: UserFormData) => void;
     isLoading: boolean;
 }
 
-const UserProfielForm = ({ onSave, isLoading }: Props) => {
+const UserProfileForm = ({ onSave, isLoading }: Props) => {
     const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
     });
@@ -70,6 +70,7 @@ const UserProfielForm = ({ onSave, isLoading }: Props) => {
                         <FormMessage />
                     </FormItem>
                 )} />
+
                 <FormField 
                 control={form.control} 
                 name="city" render={({ field }) => (
@@ -81,6 +82,7 @@ const UserProfielForm = ({ onSave, isLoading }: Props) => {
                         <FormMessage />
                     </FormItem>
                 )} />
+
                 <FormField 
                 control={form.control} 
                 name="country" render={({ field }) => (
@@ -92,6 +94,7 @@ const UserProfielForm = ({ onSave, isLoading }: Props) => {
                         <FormMessage />
                     </FormItem>
                 )} />
+                
                 </div>
                 {isLoading ? <LoadingButton/> : <Button type="submit" className="bg-orange-500">
                     Submit
@@ -101,4 +104,4 @@ const UserProfielForm = ({ onSave, isLoading }: Props) => {
     )
 }
 
-export default UserProfielForm
+export default UserProfileForm
