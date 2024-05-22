@@ -4,6 +4,7 @@ import PaginationSelector from "@/components/PaginationSelector"
 import SearchBar, { SearchForm } from "@/components/SearchBar"
 import SearchResultsCard from "@/components/SearchResultsCard"
 import { SearchResultsInfo } from "@/components/SearchResultsInfo"
+import SortOptionDropdown from "@/components/SortOptionDropdown"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 
