@@ -23,7 +23,7 @@ type Props = {
     onSave: (userProfileData: UserFormData) => void;
     isLoading: boolean;
     title?: string;
-    buttontext?: string;
+    buttonText?: string;
 }
 
 const UserProfileForm = ({ onSave, isLoading, currentUser, title= "User Profile", buttonText="Submit" }: Props) => {
