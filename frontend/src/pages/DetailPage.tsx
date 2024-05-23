@@ -9,7 +9,7 @@ import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { MenuItem as MenuItemType } from "../types"
 
-export type CardItem = {
+export type CartItem = {
     _id: string;
     name: string;
     price: number;
@@ -46,6 +46,12 @@ const DetailPage = () => {
         })
     }
 
+    const removeFromCart = (cartItem: CartItem) => {
+        setCartItems((prevCartItems)=> {
+            const updatedCartItems = prevCartItems.filter((item)=> cartItem._id !== item._id)
+        })
+    }
+
     if (isLoading || !restaurant) {
         return "Loading..."
     }
@@ -66,7 +72,7 @@ const DetailPage = () => {
 
                 <div>
                     <Card>
-                        <OrderSummary restaurant={restaurant} cartItems={cartItems} />
+                        <OrderSummary removeFromCart={removeFromCart} restaurant={restaurant} cartItems={cartItems} />
                     </Card>
                 </div>
             </div>
