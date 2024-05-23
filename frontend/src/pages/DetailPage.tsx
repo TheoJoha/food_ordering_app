@@ -1,13 +1,13 @@
 import { useGetRestaurant } from "@/api/RestaurantApi"
-import menuItem from "@/components/MenuItem"
 import MenuItem from "@/components/MenuItem"
 import { OrderSummary } from "@/components/Ordersummary"
 import RestaurantInfo from "@/components/RestaurantInfo"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Card } from "@/components/ui/card"
+import { Card, CardFooter } from "@/components/ui/card"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { MenuItem as MenuItemType } from "../types"
+import CheckOutButton from "@/components/CheckOutButton"
 
 export type CartItem = {
     _id: string;
@@ -21,7 +21,10 @@ const DetailPage = () => {
     const { restaurantId } = useParams()
     const { restaurant, isLoading } = useGetRestaurant(restaurantId)
 
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [cartItems, setCartItems] = useState<CartItem[]>(()=> {
+        const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
+        return storedCartItems ? JSON.parse(storedCartItems) : [];
+    });
 
     const addToCart = (menuItem: MenuItemType) => {
         setCartItems((prevCartItems) => {
@@ -42,13 +45,19 @@ const DetailPage = () => {
                 ]
             }
 
+            sessionStorage.setItem(`cartItems-${restaurantId}`, JSON.stringify(updatedCartItems))
+
             return updatedCartItems;
         })
     }
 
     const removeFromCart = (cartItem: CartItem) => {
-        setCartItems((prevCartItems)=> {
-            const updatedCartItems = prevCartItems.filter((item)=> cartItem._id !== item._id)
+        setCartItems((prevCartItems) => {
+            const updatedCartItems = prevCartItems.filter((item) => cartItem._id !== item._id)
+
+            sessionStorage.setItem(`cartItems-${restaurantId}`, JSON.stringify(updatedCartItems))
+
+            return updatedCartItems;
         })
     }
 
@@ -66,14 +75,20 @@ const DetailPage = () => {
                     <RestaurantInfo restaurant={restaurant} />
                     <span className="text-2xl font-bold tracking-tight">Menu</span>
                     {restaurant.menuItems.map((menuItem) => (
-                        <MenuItem addToCart={()=> addToCart(menuItem)} menuItem={menuItem} />
+                        <MenuItem addToCart={() => addToCart(menuItem)} menuItem={menuItem} />
                     ))}
                 </div>
 
                 <div>
                     <Card>
-                        <OrderSummary removeFromCart={removeFromCart} restaurant={restaurant} cartItems={cartItems} />
+                        <OrderSummary
+                            removeFromCart={removeFromCart}
+                            restaurant={restaurant}
+                            cartItems={cartItems} />
                     </Card>
+                    <CardFooter>
+                        <CheckOutButton />
+                    </CardFooter>
                 </div>
             </div>
         </div>
