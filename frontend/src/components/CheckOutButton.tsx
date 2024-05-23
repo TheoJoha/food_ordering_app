@@ -48,6 +48,8 @@ const CheckOutButton = ({onCheckout, disabled}: Props) => {
                 currentUser={currentUser} 
                 onSave={onCheckout} 
                 isLoading={isGetUserLoading} 
+                title="Confir Delivery Details"
+                buttontext="Continue to Payment"
                 />
             </DialogContent>
         </Dialog>
