@@ -96,3 +96,28 @@ export const useUpdateMyRestaurant = () => {
 
     return {updateRestaurant, isLoading}
 }
+
+export const useGetMyRestaurantOrder = () => {
+    const {getAccessTokenSilently} = useAuth0()
+
+    const getMyRestaurantOrderRequest = async (): Promise<Order[]>=> {
+        const accessToken = await getAccessTokenSilently()
+
+        const response = await fetch(`${API_BASE_URL}/api/my/restaurant/order`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch orders")
+        }
+
+        return response.json()
+    }
+
+    const {data: orders, isLoading} = useQuery("fetchMyRestaurantOrders", getMyRestaurantOrderRequest)
+
+    return {orders, isLoading}
+}
