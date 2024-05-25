@@ -35,14 +35,7 @@ export type Order = {
     user: User;
     cartItems: {
         menuItemId: string;
-    }
-}
-
-export type RestaurantSearchResponse = {
-    data: Restaurant[];
-    pagination: {
-        total: number;
-        page: number;
+        name: string;
         quantity: string;
     }[];
     deliveryDetails: {
@@ -52,7 +45,16 @@ export type RestaurantSearchResponse = {
         email: string;
     };
     totalAmount: number;
-    status: Orderstatus;
+    status: OrderStatus;
     createdAt: string;
     restaurantId: string;
+}
+
+export type RestaurantSearchResponse = {
+    data: Restaurant[];
+    pagination: {
+        total: number;
+        page: number;
+        quantity: string;
+    }[];
 }
