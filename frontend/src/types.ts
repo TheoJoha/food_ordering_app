@@ -56,5 +56,5 @@ export type RestaurantSearchResponse = {
         total: number;
         page: number;
         quantity: string;
-    }[];
+    };
 }
