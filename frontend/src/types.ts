@@ -27,7 +27,7 @@ export type Restaurant = {
     lastUpdated: string;
 }
 
-export type OrderStatus = "placed" | "paid" | "inProgress" | "outForDelivery" | "delivered"
+export type OrderStatus = | "placed" | "paid" | "inProgress" | "outForDelivery" | "delivered"
 
 export type Order = {
     _id: string;
@@ -55,6 +55,6 @@ export type RestaurantSearchResponse = {
     pagination: {
         total: number;
         page: number;
-        quantity: string;
+        pages: number;
     };
 }

@@ -2,7 +2,7 @@ import { useSearchRestaurants } from "@/api/RestaurantApi"
 import CuisineFilter from "@/components/CuisineFilter"
 import PaginationSelector from "@/components/PaginationSelector"
 import SearchBar, { SearchForm } from "@/components/SearchBar"
-import SearchResultsCard from "@/components/SearchResultsCard"
+import SearchResultCard from "@/components/SearchResultCard"
 import { SearchResultsInfo } from "@/components/SearchResultsInfo"
 import SortOptionDropdown from "@/components/SortOptionDropdown"
 import { useState } from "react"
@@ -67,7 +67,7 @@ const SearchPage = () => {
     }
 
     if (isLoading) {
-        <span>Loading...</span>
+        <span>Loading ...</span>
     }
 
     if (!results?.data || !city) {
@@ -80,7 +80,8 @@ const SearchPage = () => {
                 <CuisineFilter
                     isExpanded={isExpanded}
                     onExpandedClick={() => setIsExpanded((prevIsExpanded) => !prevIsExpanded)}
-                    selectedCuisines={searchState.selectedCuisines} onChange={setSelectedCuisines}
+                    selectedCuisines={searchState.selectedCuisines}
+                    onChange={setSelectedCuisines}
                 />
             </div>
             <div id="main-content" className="flex flex-col gap-5">
@@ -101,10 +102,13 @@ const SearchPage = () => {
                 </div>
 
                 {results.data.map((restaurant) => (
-                    <SearchResultsCard restaurant={restaurant}
+                    <SearchResultCard restaurant={restaurant}
                     />
                 ))}
-                <PaginationSelector page={results.pagination.page} pages={results.pagination.page} onPageChange={setPage}
+                <PaginationSelector
+                    page={results.pagination.page}
+                    pages={results.pagination.pages}
+                    onPageChange={setPage}
                 />
             </div>
         </div>

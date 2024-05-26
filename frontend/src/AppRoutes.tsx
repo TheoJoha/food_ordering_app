@@ -13,17 +13,23 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/"
-                element={<Layout showHero><HomePage /></Layout>} />
-            <Route path="/auth-callback" element={<AuthCallbackPage />} />
+                element={
+                <Layout showHero>
+                    <HomePage />
+                </Layout>}
+            />
+            <Route path="/auth-callback" element={<AuthCallbackPage />}
+            />
             <Route path="/search/:city" element={<Layout showHero={false}>
                 <SearchPage />
-            </Layout>} />
+            </Layout>}
+            />
             <Route path="/detail/:restaurantId" element={<Layout showHero={false}>
                 <DetailPage />
-            </Layout>} />
-
+            </Layout>}
+            />
             <Route element={<ProtectedRoute />}>
-            <Route path="/order-status"
+                <Route path="/order-status"
                     element={<Layout>
                         <OrderStatusPage />
                     </Layout>} />

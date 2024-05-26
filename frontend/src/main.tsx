@@ -19,11 +19,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Router>
       <QueryClientProvider client={queryClient}>
-      <Auth0ProviderWithNavigate>
-        <AppRoutes />
-        <Toaster visibleToasts={1} position="top-right" richColors />
-      </Auth0ProviderWithNavigate>
+        <Auth0ProviderWithNavigate>
+          <AppRoutes />
+          <Toaster visibleToasts={1} position="top-right" richColors />
+        </Auth0ProviderWithNavigate>
       </QueryClientProvider>
     </Router>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
