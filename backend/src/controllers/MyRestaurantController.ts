@@ -73,14 +73,7 @@ const updateMyRestaurant = async (req: Request, res: Response) => {
     }
 }
 
-const uploadImage = async (file: Express.Multer.File) => {
-    const image = file;
-    const base64Image = Buffer.from(image.buffer).toString("base64")
-    const dataURI = `data:${image.mimetype};base64,${base64Image}`
 
-    const uploadResponse = await cloudinary.v2.uploader.upload(dataURI)
-
-}
 const getMyRestaurantOrders = async (req: Request, res: Response) => {
     try {
         const restaurant = await Restaurant.findOne({ user: req.userId })
@@ -121,6 +114,15 @@ const updateOrderStatus = async (req: Request, res: Response) => {
         console.log(e)
         res.status(500).json({ message: "unable to update order status" })
     }
+}
+
+const uploadImage = async (file: Express.Multer.File) => {
+    const image = file;
+    const base64Image = Buffer.from(image.buffer).toString("base64")
+    const dataURI = `data:${image.mimetype};base64,${base64Image}`
+
+    const uploadResponse = await cloudinary.v2.uploader.upload(dataURI)
+
 }
 
 export default {
