@@ -25,13 +25,7 @@ const createMyRestaurant = async (req: Request, res: Response) => {
             return res.status(409).json({ message: "user restaurant already exists" })
         }
 
-        /* const image = req.file as Express.Multer.File
-        const base64Image = Buffer.from(image.buffer).toString("base64")
-        const dataURI = `data:${image.mimetype};base64,${base64Image}`
-
-        const uploadResponse = await cloudinary.v2.uploader.upload(dataURI) */
-
-        const imageUrl = await uploadImage(req.file as Express.Multer.File)
+        const imageUrl = await uploadImage(req.file as Express.Multer.File) as unknown as string;
 
         const restaurant = new Restaurant(req.body)
         restaurant.imageUrl = imageUrl;
@@ -66,7 +60,7 @@ const updateMyRestaurant = async (req: Request, res: Response) => {
         restaurant.lastUpdated = new Date();
 
         if (req.file) {
-            const imageUrl = await uploadImage(req.file as Express.Multer.File)
+            const imageUrl = await uploadImage(req.file as Express.Multer.File) as unknown as string;
             restaurant.imageUrl = imageUrl;
         }
 

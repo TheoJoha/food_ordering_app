@@ -1,4 +1,4 @@
-import { useCreateMyRestaurant, useGetMyRestaurant, useUpdateMyRestaurant } from "@/api/MyRestaurantApi"
+import { useCreateMyRestaurant, useGetMyRestaurant, useGetMyRestaurantOrders, useUpdateMyRestaurant } from "@/api/MyRestaurantApi"
 import OrderItemCard from "@/components/OrderItemCard"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ManageRestaurantForm from "@/forms/user-profile-form/manage-restaurant-forms/ManageRestaurantForm"
@@ -26,7 +26,7 @@ const ManageRestaurantPage = () => {
                 <h2 className="text-2xl font-bold">
                     {orders?.length}
                     </h2>
-                    {orders.map((order)=> <OrderItemCard order={order} />
+                    {orders?.map((order)=> <OrderItemCard order={order} />
                 )}
             </TabsContent>
             <TabsContent value="manage-restaurant">

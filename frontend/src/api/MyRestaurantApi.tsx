@@ -97,7 +97,7 @@ export const useUpdateMyRestaurant = () => {
     return {updateRestaurant, isLoading}
 }
 
-export const useGetMyRestaurantOrder = () => {
+export const useGetMyRestaurantOrders = () => {
     const {getAccessTokenSilently} = useAuth0()
 
     const getMyRestaurantOrderRequest = async (): Promise<Order[]>=> {
@@ -149,7 +149,11 @@ export const useUpdateMyRestaurantOrder = () => {
         return response.json()
     }
 
-    const {mutateAsync: updateRestaurantStatus, isLoading, isError, isSuccess} = useMutation(updateMyRestaurantOrder)
+    const {mutateAsync: updateRestaurantStatus, 
+        isLoading, 
+        isError, 
+        isSuccess,
+        reset} = useMutation(updateMyRestaurantOrder)
 
     if (isSuccess) {
         toast.success("Order updated")
